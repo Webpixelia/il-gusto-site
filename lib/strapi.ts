@@ -1,5 +1,6 @@
 // lib/strapi.ts
 import type { Category, Plat, StrapiResponse, CategorieGalerie, GalerieImage, FaqItem, Menu, Page } from '@/types/strapi';
+import { buildImageUrl } from './utils';
 
 export async function fetchStrapiData<T>(
     endpoint: string, 
@@ -118,12 +119,13 @@ export async function getGalerieData() {
       if (!res.data) return [];
   
       // Transformation des données
+      const baseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337';
       return res.data.map(category => ({
         id: category.id,
         name: category.Nom,
         slug: category.Slug,
         images: (category.galeries || []).map(galerie => ({
-          src: `${process.env.STRAPI_API_URL}${galerie.Image.url}`,
+          src: buildImageUrl(galerie.Image.url, baseUrl),
           alt: galerie.Image.alternativeText || galerie.Nom,
           width: galerie.Image.width,
           height: galerie.Image.height,
