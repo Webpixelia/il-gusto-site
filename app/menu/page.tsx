@@ -5,6 +5,7 @@ import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import DeliveryButtons from '@/components/layout/DeliveryButtons'
 import { getAllCategories, getPlatsByCategorySlug } from "@/lib/strapi"
+import { buildImageUrl } from "@/lib/utils"
 import type { Plat, Category, Supplement } from "@/types/strapi";
 
 export const metadata: Metadata = {
@@ -62,11 +63,11 @@ export default async function MenuPage() {
               <>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                   {categories.map((category: Category) => {
-                    const imageUrl = category.Image?.url
-                      ? category.Image.url.startsWith('http')
-                        ? category.Image.url
-                        : `${process.env.STRAPI_API_URL}${category.Image.url}`
-                      : "/images/placeholder.svg?height=400&width=600&text=Image";
+                    const imageUrl = buildImageUrl(
+                      category.Image?.url,
+                      process.env.STRAPI_API_URL || 'http://localhost:1337',
+                      "/images/placeholder.svg?height=400&width=600&text=Image"
+                    );
 
                     const altText = category.Image?.alternativeText 
                       || category.Nom 

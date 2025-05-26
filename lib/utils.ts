@@ -12,5 +12,17 @@ export function buildImageUrl(
   fallback = "/images/placeholder.svg",
 ): string {
   if (!imageUrl) return fallback
-  return imageUrl.startsWith("http") ? imageUrl : `${baseUrl}${imageUrl}`
+
+  // Si l'URL contient déjà un domaine (http/https), l'utiliser directement
+  if (imageUrl.startsWith("http")) {
+    return imageUrl
+  }
+
+  // Si l'URL contient déjà le domaine Strapi, l'utiliser directement
+  if (imageUrl.includes("strapiapp.com")) {
+    return imageUrl.startsWith("https://") ? imageUrl : `https://${imageUrl}`
+  }
+
+  // Sinon, construire l'URL avec la base
+  return `${baseUrl}${imageUrl}`
 }
