@@ -6,14 +6,13 @@ import PageHeader from "@/components/layout/page-header"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 
-interface PageProps {
-  params: {
-    slug: string
-  }
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 // Cette fonction est appelée pour générer les métadonnées de la page dynamique
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {  
+export async function generateMetadata({ params }: Props): Promise<Metadata> {  
   const page = await getPageBySlug(params.slug);
   
   if (!page) return {
@@ -31,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function DynamicPage({ params }: PageProps) {  
+export default async function DynamicPage({ params }: Props) {  
   const page = await getPageBySlug(params.slug);
   
   if (!page) notFound();
