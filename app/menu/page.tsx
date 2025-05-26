@@ -63,7 +63,9 @@ export default async function MenuPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                   {categories.map((category: Category) => {
                     const imageUrl = category.Image?.url
-                      ? `${process.env.STRAPI_API_URL || 'http://localhost:1337'}${category.Image.url}`
+                      ? category.Image.url.startsWith('http')
+                        ? category.Image.url
+                        : `${process.env.STRAPI_API_URL}${category.Image.url}`
                       : "/images/placeholder.svg?height=400&width=600&text=Image";
 
                     const altText = category.Image?.alternativeText 
