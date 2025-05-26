@@ -10,7 +10,13 @@ export default async function HeaderServer() {
   const contactData = await fetchStrapiData<ContactInfo>('/contact-infos?populate=*');
   const contactInfo = contactData.data[0];
   const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337';
+
+  // Logs pour debug
+  console.log('Raw Logo URL:', contactInfo.Logo?.url);
+  console.log('STRAPI_API_URL:', process.env.STRAPI_API_URL);
+  
   const logoUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl);
+  console.log('Final Logo URL:', logoUrl);
 
   // Passage des données au composant client
   return (
