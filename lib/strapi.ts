@@ -1,6 +1,5 @@
 // lib/strapi.ts
 import type { Category, Plat, StrapiResponse, CategorieGalerie, GalerieImage, FaqItem, Menu, Page } from '@/types/strapi';
-import { buildImageUrl } from './utils';
 
 export async function fetchStrapiData<T>(
     endpoint: string, 
@@ -112,20 +111,20 @@ export async function getGalerieData() {
       // Utilisez la requête qui fonctionne avec populate[galeries]
       const res = await fetchStrapiData<CategorieGalerie>(
         '/categorie-galeries',
-        //'populate[galeries][populate][Image][fields][0]=url&populate[galeries][populate][Image][fields][1]=alternativeText&populate[galeries][populate][Image][fields][2]=width&populate[galeries][populate][Image][fields][3]=height&sort=createdAt:asc',
         'populate[galeries][populate][Image][fields][0]=url&populate[galeries][populate][Image][fields][1]=alternativeText&populate[galeries][populate][Image][fields][2]=width&populate[galeries][populate][Image][fields][3]=height&populate[galeries][fields][0]=Featured&populate[galeries][fields][1]=Nom&sort=createdAt:asc'
       );
   
       if (!res.data) return [];
   
       // Transformation des données
-      const baseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337';
       return res.data.map(category => ({
         id: category.id,
         name: category.Nom,
         slug: category.Slug,
         images: (category.galeries || []).map(galerie => ({
-          src: buildImageUrl(galerie.Image.url, baseUrl),
+          src: galerie.Image.url.startsWith('http') 
+            ? galerie.Image.url 
+            : `https://jolly-basketball-d4a28c8b08.media.strapiapp.com${galerie.Image.url}`,
           alt: galerie.Image.alternativeText || galerie.Nom,
           width: galerie.Image.width,
           height: galerie.Image.height,
