@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@layer base {
+  @font-face {
+    font-family: "Handwriting";
+    src: url("/fonts/permanent-marker.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
+    --primary-color: #4a8063;
+    --primary-color-dark: #3a6a53;
+    --scn-radius: 0.5rem;
+    --scn-card: 0 0% 100%;
+    --radius: var(--vsc-radius, var(--scn-radius));
+    --card: var(--vsc-card, var(--scn-card));
+  }
+
+  *, ::after, ::before {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+      border-color: #e5e7eb;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  /* styles/globals.css */
+  .btn-delivery {
+    @apply flex items-center justify-center px-4 py-2 rounded-md transition-colors;
+  }
+}
