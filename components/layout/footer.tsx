@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Phone, Clock } from "lucide-react"
 import { fetchStrapiData, getMenuBySlug } from "@/lib/strapi"
+import { buildImageUrl } from "@/lib/utils"
 import type { ContactInfo } from "@/types/strapi"
 import DeliveryButtons from '@/components/layout/DeliveryButtons'
 
@@ -13,9 +14,7 @@ export default async function Footer() {
 
   // URL du logo
   const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337'
-  const logoUrl = contactInfo.Logo?.url 
-    ? `${strapiBaseUrl}${contactInfo.Logo.url}`
-    : '/images/placeholder-logo.png'
+  const logoUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, '/images/placeholder-logo.png')
 
   return (
     <footer className="bg-black text-white py-12">

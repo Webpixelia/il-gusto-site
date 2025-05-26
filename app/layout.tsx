@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { fetchStrapiData } from '@/lib/strapi'
+import { buildImageUrl } from "@/lib/utils"
 import type { ContactInfo } from '@/types/strapi'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,10 +11,8 @@ const contactData = await fetchStrapiData<ContactInfo>('/contact-infos', `popula
 const contactInfo = contactData.data[0];
 
 // URL du logo pour le favicon
-const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337'
-const faviconUrl = contactInfo.Logo?.url 
-  ? `${strapiBaseUrl}${contactInfo.Logo.url}`
-  : '/images/placeholder-logo.png'
+const strapiBaseUrl = process.env.STRAPI_API_URL || "http://localhost:1337"
+const faviconUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, "/images/placeholder-logo.png")
 
 export const metadata: Metadata = { 
   metadataBase: new URL('http://localhost:3001'),

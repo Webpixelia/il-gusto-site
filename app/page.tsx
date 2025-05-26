@@ -7,6 +7,7 @@ import GoogleReviews from '@/components/layout/GoogleReviews';
 import { MapPin, Phone, Clock, ChevronRight, Star, Utensils, MessageCircle } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { fetchStrapiData, getGalerieData, generateDirectionsUrl } from '@/lib/strapi'
+import { buildImageUrl } from "@/lib/utils"
 import type { ContactInfo } from '@/types/strapi'
 import ContactMap from '@/components/layout/ContactMap'
 
@@ -16,11 +17,8 @@ export default async function Home() {
   const contactInfo = contactData.data[0];
   const galerieData = await getGalerieData();
 
-  const strapiBaseUrl = process.env.STRAPI_API_URL;
-  const logoUrl = contactInfo.Logo?.url
-    ? `${strapiBaseUrl}${contactInfo.Logo.url}` 
-    : '/images/placeholder.svg';
-  console.log('Logo URL:', logoUrl);
+  const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337';
+  const logoUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl);
 
   // Récupération des images featured
   const allImages = galerieData.flatMap(category => 
