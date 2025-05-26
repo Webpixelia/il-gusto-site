@@ -1,3 +1,4 @@
+import React from 'react';
 import StrapiRichTextRenderer from '@/components/StrapiRichTextRenderer';
 import type { Metadata } from "next"
 import { notFound } from 'next/navigation'
@@ -6,13 +7,20 @@ import PageHeader from "@/components/layout/page-header"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 
-type Props = {
+// Définition des types pour les paramètres de page
+type GenerateMetadataProps = {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+type PageProps = {
+  params: { slug: string }
 }
 
 // Cette fonction est appelée pour générer les métadonnées de la page dynamique
-export async function generateMetadata({ params }: Props): Promise<Metadata> {  
+export async function generateMetadata(
+  { params }: GenerateMetadataProps
+): Promise<Metadata> {  
   const page = await getPageBySlug(params.slug);
   
   if (!page) return {
@@ -30,8 +38,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function DynamicPage({ params }: Props) {  
-  const page = await getPageBySlug(params.slug);
+export default async function DynamicPage(
+  props: PageProps
+): Promise<React.ReactElement> {  
+  const page = await getPageBySlug(props.params.slug);
   
   if (!page) notFound();
 
