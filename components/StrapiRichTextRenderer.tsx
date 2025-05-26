@@ -62,27 +62,21 @@ export default function StrapiRichTextRenderer({ content, className = '' }: Stra
               ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'}${image.url}`
               : image.url;
 
-            // Utiliser Image de Next.js si on a les dimensions, sinon fallback sur img standard
-            if (image.width && image.height) {
-              return (
-                <div className="my-6">
-                  <Image
-                    src={imageUrl}
-                    width={image.width}
-                    height={image.height}
-                    alt={image.alternativeText || ""}
-                    className="rounded-lg"
-                  />
-                </div>
-              );
-            }
-            
+            // Dimensions par défaut si non fournies
+            const width = image.width || 800;
+            const height = image.height || 600;
+
             return (
-              <div className="my-6">
-                <img
+              <div className="my-6 relative w-full">
+                <Image
                   src={imageUrl}
+                  width={width}
+                  height={height}
                   alt={image.alternativeText || ""}
-                  className="rounded-lg max-w-full h-auto"
+                  className="rounded-lg"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                  priority={false}
+                  quality={75}
                 />
               </div>
             );
