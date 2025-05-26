@@ -5,7 +5,7 @@ import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import DeliveryButtons from '@/components/layout/DeliveryButtons'
 import { getAllCategories, getPlatsByCategorySlug } from "@/lib/strapi"
-import type { Plat } from "@/types/strapi";
+import type { Plat, Category, Supplement } from "@/types/strapi";
 
 export const metadata: Metadata = {
   title: "Menu - IL GUSTO Restaurant Italien à Lille",
@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   },
 }
 
+interface PlatsByBase {
+  [key: string]: Plat[];
+}
+
 export default async function MenuPage() {
   const categories = await getAllCategories();
   const platsByCategory: Record<string, Plat[]> = {};
@@ -32,7 +36,7 @@ export default async function MenuPage() {
   }
 
   // Organiser les pizzas par base
-  const pizzasParBase = (plats: Plat[]) => {
+  const pizzasParBase = (plats: Plat[]): PlatsByBase => {
     return plats.reduce((acc, plat) => {
       const base = plat.Base;
       if (!base) return acc;
@@ -42,7 +46,7 @@ export default async function MenuPage() {
       }
       acc[base].push(plat);
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as PlatsByBase);
   };
   
   return (
@@ -57,7 +61,7 @@ export default async function MenuPage() {
             {categories.length > 0 ? (
               <>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                  {categories.map((category: any) => {
+                  {categories.map((category: Category) => {
                     const imageUrl = category.Image?.url
                       ? `${process.env.STRAPI_API_URL || 'http://localhost:1337'}${category.Image.url}`
                       : "/images/placeholder.svg?height=400&width=600&text=Image";
@@ -97,7 +101,7 @@ export default async function MenuPage() {
                 </div>
 
                 {/* Sections des plats */}
-                {categories.map((category: any) => {
+                {categories.map((category: Category) => {
                   const categorySlug = category.Slug;
                   const categoryPlats = platsByCategory[categorySlug] || [];
 
@@ -122,7 +126,7 @@ export default async function MenuPage() {
                                 <div key={baseName}>
                                   <h3 className="text-2xl font-handwriting mb-4">{baseName}</h3>
                                   <div className="space-y-6">
-                                    {plats.map((plat: any) => (
+                                    {plats.map((plat: Plat) => (
                                       <div key={plat.id} className="border-b border-gray-100 pb-4">
                                         <div className="flex justify-between items-center mb-1">
                                           <h4 className="font-semibold">{plat.Nom}</h4>
@@ -140,7 +144,7 @@ export default async function MenuPage() {
                           ) : (
                             // Affichage normal pour les autres catégories
                             <div className="grid md:grid-cols-2 gap-x-8 gap-y-6">
-                              {categoryPlats.map((plat: any) => (
+                              {categoryPlats.map((plat: Plat) => (
                                 <div key={plat.id} className="border-b border-gray-100 pb-4">
                                   <div className="flex justify-between items-center mb-1">
                                     <h4 className="font-semibold">{plat.Nom}</h4>
@@ -158,7 +162,7 @@ export default async function MenuPage() {
                           )}
 
                           {/* Section des suppléments */}
-                          {category.supplements?.length > 0 && (
+                          {category.supplements && category.supplements.length > 0 && (
                             <div className="mt-12 bg-gray-50 p-6 rounded-lg">
                               <div className="flex items-center mb-4">
                                 <h3 className="text-2xl font-handwriting text-[#4a8063]">
@@ -168,7 +172,7 @@ export default async function MenuPage() {
                               </div>
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {category.supplements.map((supplement: any) => (
+                                {category.supplements.map((supplement: Supplement) => (
                                   supplement.Disponible !== false && (
                                     <div key={supplement.id} className="bg-white p-4 rounded shadow-sm">
                                       <div className="flex justify-between items-center">

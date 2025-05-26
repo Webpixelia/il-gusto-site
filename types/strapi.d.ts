@@ -24,6 +24,17 @@ export interface Plat {
   publishedAt?: string;
 }
   
+export interface Supplement {
+  id: number;
+  Nom: string;
+  Prix: number;
+  Disponible?: boolean;
+  Slug?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+}
+
 export interface Category {
   id: number;
   Nom: string;
@@ -40,16 +51,7 @@ export interface Category {
     alternativeText?: string | null;
     // autres propriétés de l'image si nécessaire
   };
-  supplements?: Array<{ // Modifié ici - tableau direct
-    id: number;
-    Nom: string;
-    Prix: number;
-    Disponible?: boolean;
-    Slug?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    publishedAt?: string;
-  }>;
+  supplements?: Supplement[];
 }
 
 export interface CategoryWithPlats {

@@ -6,8 +6,14 @@ import PageHeader from "@/components/layout/page-header"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
+
 // Cette fonction est appelée pour générer les métadonnées de la page dynamique
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {  
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {  
   const page = await getPageBySlug(params.slug);
   
   if (!page) return {
@@ -25,7 +31,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function DynamicPage({ params }: { params: { slug: string } }) {  
+export default async function DynamicPage({ params }: PageProps) {  
   const page = await getPageBySlug(params.slug);
   
   if (!page) notFound();
@@ -43,10 +49,10 @@ export default async function DynamicPage({ params }: { params: { slug: string }
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="prose prose-lg max-w-none">
-            <StrapiRichTextRenderer 
-              content={page.Contenu} 
-              className="prose-lg md:prose-xl prose-slate" 
-            />
+              <StrapiRichTextRenderer 
+                content={page.Contenu} 
+                className="prose-lg md:prose-xl prose-slate" 
+              />
               <p className="text-sm text-gray-600 mt-8">
                 Dernière mise à jour : {new Date(page.publishedAt).toLocaleDateString('fr-FR')}
               </p>
