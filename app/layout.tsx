@@ -10,12 +10,13 @@ const inter = Inter({ subsets: ["latin"] });
 const contactData = await fetchStrapiData<ContactInfo>('/contact-infos', `populate=Logo`);
 const contactInfo = contactData.data[0];
 
-// URL du logo pour le favicon
+// URLs de base
 const strapiBaseUrl = process.env.STRAPI_API_URL || "http://localhost:1337"
+const siteUrl = process.env.SITE_URL || "https://ilgusto-lille.fr"
 const faviconUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, "/images/placeholder-logo.png")
 
 export const metadata: Metadata = { 
-  metadataBase: new URL('http://localhost:3001'),
+  metadataBase: new URL(siteUrl),
   title: "IL GUSTO - Restaurant Italien & Pizzeria à Lille | Pizza, Pasta & Desserts",
   description:
     "Restaurant italien authentique à Lille. Pizzas au feu de bois, pâtes fraîches et desserts maison. Sur place et à emporter. Réservez au 03 65 67 38 60.",
@@ -24,13 +25,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "IL GUSTO - Restaurant Italien & Pizzeria à Lille",
     description: "Pizzas au feu de bois, pâtes fraîches et desserts maison. Sur place et à emporter.",
-    url: "https://ilgusto-lille.fr",
+    url: siteUrl,
     siteName: "IL GUSTO Restaurant",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "/images/placeholder.svg",
+        url: `${siteUrl}/images/placeholder.svg`,
         width: 1200,
         height: 630,
         alt: "IL GUSTO Restaurant Italien à Lille",
@@ -41,10 +42,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "IL GUSTO - Restaurant Italien & Pizzeria à Lille",
     description: "Pizzas au feu de bois, pâtes fraîches et desserts maison. Sur place et à emporter.",
-    images: ["/images/placeholder.svg"],
+    images: [`${siteUrl}/images/placeholder.svg`],
   },
   alternates: {
-    canonical: "https://ilgusto-lille.fr",
+    canonical: siteUrl,
   },
   robots: {
     index: true,
