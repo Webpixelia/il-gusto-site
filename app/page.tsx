@@ -89,8 +89,7 @@ export default async function Home() {
         <section className="bg-[#4a8063] text-white py-4">
           <div className="container mx-auto px-4 text-center">
             <p className="font-handwriting text-xl">
-              <span className="font-bold">OFFRE SPÉCIALE :</span> -20% sur toutes les pizzas à emporter du lundi au
-              jeudi !
+              <span className="font-bold">OFFRE SPÉCIALE MIDI:</span> Petite pizza 28cm + Boisson 33cl à 9,90€
             </p>
           </div>
         </section>
@@ -149,7 +148,7 @@ export default async function Home() {
                       <li key={index}>{line}</li>
                     ))}
                 </ul>
-                <p className="mt-3 text-sm text-gray-600">Cuisine ouverte en continu le weekend</p>
+                <p className="mt-3 text-sm text-gray-600">Ouvert tous le weekend</p>
               </div>
             </div>
           </div>
@@ -170,7 +169,7 @@ export default async function Home() {
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   Notre four à bois est l'âme de notre restaurant. Il nous permet de cuire nos pizzas à haute température, leur donnant cette texture croustillante à l'extérieur et moelleuse à l'intérieur qui fait la renommée des pizzas napolitaines authentiques.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 mb-4 leading-relaxed">
                   Chaque jour, nous préparons nos pâtes à pizza fraîches selon la tradition italienne. Tous nos ingrédients sont soigneusement sélectionnés : mozzarella, tomates, huile d'olive extra vierge... Nous privilégions les produits frais et de saison pour vous offrir une expérience culinaire inoubliable.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
@@ -224,13 +223,17 @@ export default async function Home() {
                 </div>
               </>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[...Array(4)].map((_, index) => (
-                  <div key={`placeholder-${index}`} className="relative h-48 md:h-64 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
-                    <span className="text-gray-400">Photo {index + 1}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="text-center p-8 bg-gray-50 rounded-lg mb-4">
+              <p className="text-gray-600 italic">
+                Notre galerie photo est en cours de préparation. Très bientôt, vous pourrez découvrir ici nos créations culinaires et l'ambiance chaleureuse de notre restaurant.
+              </p>
+              <Link 
+                href="/contact" 
+                className="inline-block mt-4 text-[#4a8063] hover:text-[#3a6a53] font-handwriting"
+              >
+                En attendant, venez nous rendre visite !
+              </Link>
+            </div>
             )}
           </div>
         </section>
@@ -284,7 +287,7 @@ export default async function Home() {
                   <span className="ml-2 text-sm text-gray-600">Février 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "C’est mon premier avis sur Google, je le mets parce que c’était la meilleure pizza de ma vie! Le cadre est très propre, très calme et le gérant est très gentil ! il y a un large choix de boisson (en + des boissons éthiques), je recommande à 100% !"
+                  "C'est mon premier avis sur Google, je le mets parce que c'était la meilleure pizza de ma vie! Le cadre est très propre, très calme et le gérant est très gentil ! il y a un large choix de boisson (en + des boissons éthiques), je recommande à 100% !"
                 </blockquote>
                 <footer className="font-semibold">melinda afri</footer>
               </Card>
@@ -302,7 +305,7 @@ export default async function Home() {
                 </div>
                 <blockquote className="text-gray-700 mb-4">
                   "Je vous recommande vivement cette pizzeria ! Les pizzas cuites au feu de bois sont exceptionnelles.
-                    Le restaurant est propre, moderne et chaleureux, et le personnel est à la fois accueillant et souriant. En bonus, l’établissement ne propose que des boissons éthiques, et se sont, à ma connaissance, les seuls à les proposer dans la rue."
+                    Le restaurant est propre, moderne et chaleureux, et le personnel est à la fois accueillant et souriant. En bonus, l'établissement ne propose que des boissons éthiques, et se sont, à ma connaissance, les seuls à les proposer dans la rue."
                 </blockquote>
                 <footer className="font-semibold">Hum Anity</footer>
               </Card>
@@ -334,7 +337,7 @@ export default async function Home() {
                 href="/contact"
                 className="bg-black hover:bg-gray-900 text-white font-handwriting py-3 px-6 rounded-md text-lg transition-all inline-flex items-center justify-center"
               >
-                <Utensils className="w-5 h-5 mr-2" /> Commander en ligne
+                <Utensils className="w-5 h-5 mr-2" /> Commander maintenant !
               </Link>
             </div>
           </div>
