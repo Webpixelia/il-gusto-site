@@ -29,7 +29,7 @@ export default async function GaleriePage() {
     <>
       <Header />
       <main>
-        <PageHeader title="Notre Galerie" description="Découvrez notre restaurant et nos spécialités en images" imagePath="/images/restaurant.jpeg"/>
+        <PageHeader title="Notre Galerie" description="Découvrez notre restaurant et nos spécialités en images" imagePath="/images/il-gusto-galerie.webp?height=400&width=1200&text=IL+GUSTO+GALERIE"/>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">

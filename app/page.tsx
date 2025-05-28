@@ -44,7 +44,7 @@ export default async function Home() {
         >
           <div className="absolute inset-0 opacity-40 z-0">
             <Image
-              src="/images/pizza-bg.jpg"
+              src="/images/pizza-bg.webp"
               alt="Four à pizza traditionnel avec flammes"
               fill
               className="object-cover"
@@ -165,24 +165,21 @@ export default async function Home() {
               <div className="order-2 md:order-1">
                 <h3 className="text-3xl font-handwriting text-[#4a8063] mb-4">Passion & Tradition</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Depuis 2018, IL GUSTO vous fait découvrir les saveurs authentiques de l'Italie au cœur de Lille. Notre
-                  chef, originaire de Naples, perpétue les recettes traditionnelles transmises de génération en
-                  génération.
+                  IL GUSTO vous fait découvrir les saveurs authentiques de l'Italie au cœur de Lille. Notre équipe perpétue les recettes traditionnelles italiennes dans le respect de la tradition culinaire ancestrale.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Notre four à bois, importé directement d'Italie, est l'âme de notre restaurant. Il nous permet de
-                  cuire nos pizzas à haute température, leur donnant cette texture croustillante à l'extérieur et
-                  moelleuse à l'intérieur qui fait la renommée des pizzas napolitaines.
+                  Notre four à bois est l'âme de notre restaurant. Il nous permet de cuire nos pizzas à haute température, leur donnant cette texture croustillante à l'extérieur et moelleuse à l'intérieur qui fait la renommée des pizzas napolitaines authentiques.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Tous nos ingrédients sont soigneusement sélectionnés : mozzarella di bufala, tomates San Marzano,
-                  huile d'olive extra vierge... Nous privilégions les produits frais et de saison pour vous offrir une
-                  expérience culinaire inoubliable.
+                  Chaque jour, nous préparons nos pâtes à pizza fraîches selon la tradition italienne. Tous nos ingrédients sont soigneusement sélectionnés : mozzarella, tomates, huile d'olive extra vierge... Nous privilégions les produits frais et de saison pour vous offrir une expérience culinaire inoubliable.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  Au-delà de nos pizzas authentiques, notre carte vous propose un large choix de pâtes fraîches préparées selon les recettes traditionnelles : des classiques comme la Carbonara aux lardons de dinde ou la Bolognaise, aux créations plus originales comme nos pâtes au saumon fumé ou au poulet curry. Nos salades composées, nos desserts faits maison (tiramisu classique ou aux spéculoos) et notre sélection de boissons complètent cette offre pour un voyage culinaire complet.
                 </p>
               </div>
               <div className="order-1 md:order-2 relative h-[400px] rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/images/pizza-bg.jpg"
+                  src="/images/pizza-bg.webp"
                   alt="Notre chef préparant une pizza traditionnelle"
                   fill
                   className="object-cover"
@@ -264,13 +261,15 @@ export default async function Home() {
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                   </div>
-                  <span className="ml-2 text-sm text-gray-600">il y a 2 semaines</span>
+                  <span className="ml-2 text-sm text-gray-600">Avril 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "La meilleure pizza de Lille ! La pâte est parfaite, fine et croustillante. Les ingrédients sont frais
-                  et de qualité. Le service est impeccable. Je recommande vivement !"
+                  "Très bonne adresse! Pizza délicieuse, cuite au feu de bois.
+                    Service très convivial et très rapide.
+                    Endroit propre et accueillant!
+                    Foncez."
                 </blockquote>
-                <footer className="font-semibold">Marie L.</footer>
+                <footer className="font-semibold">Anissa ABB</footer>
               </Card>
 
               <Card className="p-6 shadow-md">
@@ -282,13 +281,12 @@ export default async function Home() {
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                   </div>
-                  <span className="ml-2 text-sm text-gray-600">il y a 1 mois</span>
+                  <span className="ml-2 text-sm text-gray-600">Février 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "Excellente découverte ! Les pâtes sont délicieuses et faites maison. L'ambiance est chaleureuse et le
-                  personnel très accueillant. Un vrai restaurant italien comme on les aime."
+                  "C’est mon premier avis sur Google, je le mets parce que c’était la meilleure pizza de ma vie! Le cadre est très propre, très calme et le gérant est très gentil ! il y a un large choix de boisson (en + des boissons éthiques), je recommande à 100% !"
                 </blockquote>
-                <footer className="font-semibold">Thomas D.</footer>
+                <footer className="font-semibold">melinda afri</footer>
               </Card>
 
               <Card className="p-6 shadow-md">
@@ -300,13 +298,13 @@ export default async function Home() {
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                     <Star className="w-5 h-5 fill-current" aria-hidden="true" />
                   </div>
-                  <span className="ml-2 text-sm text-gray-600">il y a 3 mois</span>
+                  <span className="ml-2 text-sm text-gray-600">Février 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "Le tiramisu est à tomber par terre ! Je viens régulièrement chez IL GUSTO et je n'ai jamais été
-                  déçue. Les prix sont raisonnables pour la qualité proposée. À essayer absolument !"
+                  "Je vous recommande vivement cette pizzeria ! Les pizzas cuites au feu de bois sont exceptionnelles.
+                    Le restaurant est propre, moderne et chaleureux, et le personnel est à la fois accueillant et souriant. En bonus, l’établissement ne propose que des boissons éthiques, et se sont, à ma connaissance, les seuls à les proposer dans la rue."
                 </blockquote>
-                <footer className="font-semibold">Sophie M.</footer>
+                <footer className="font-semibold">Hum Anity</footer>
               </Card>
             </div>
             <div className="mt-8 text-center">
@@ -329,7 +327,7 @@ export default async function Home() {
               Envie de déguster nos spécialités ?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Réservez votre table ou commandez à emporter dès maintenant !
+              Rendez-nous visite ou commandez dès maintenant via UberEats !
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -354,7 +352,7 @@ export default async function Home() {
               <div>
                 <h3 className="text-3xl font-handwriting text-[#4a8063] mb-4">IL GUSTO</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Situé au cœur de Lille, à proximité du Théâtre Sébastopol, IL GUSTO vous propose des pizzas et pâtes
+                  Situé à Lille, à proximité de Porte des Postes, IL GUSTO vous propose des pizzas et pâtes
                   authentiques, préparées avec des ingrédients frais et de qualité.
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">

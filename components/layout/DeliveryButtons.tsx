@@ -43,7 +43,7 @@ export default function DeliveryButtons({
         href="https://www.deliveroo.fr"
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-delivery w-full bg-[#00ccbc] text-white hover:bg-[#00b3a4] focus:outline-none"
+        className="btn-delivery w-full bg-[#00ccbc] text-white hover:bg-[#00b3a4] focus:outline-none hidden"
       >
         <Image
           src="/images/deliveroo-logo.svg?height=24&width=24&text=D"

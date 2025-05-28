@@ -36,7 +36,7 @@ export default async function ContactPage() {
     <>
       <Header />
       <main>
-        <PageHeader title="Contact" description="Nous sommes à votre écoute" imagePath="/images/placeholder.svg" />
+        <PageHeader title="Contact" description="Nous sommes à votre écoute" imagePath="/images/il-gusto-contact.webp?height=400&width=1200&text=IL+GUSTO+LILLE" />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
@@ -111,7 +111,7 @@ export default async function ContactPage() {
 
                 <div className="flex flex-col md:flex-row gap-6 bg-[#f9f9f9] p-6 rounded-lg shadow-md">
                 {/* Partie gauche (toujours en haut sur mobile, 1/3 sur desktop) */}
-                <div className="flex items-start md:w-1/3">
+                <div className="flex items-start md:w-1/3 hidden">
                   <MapPin className="w-5 h-5 text-[#4a8063] mr-3 mt-0.5 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold mb-1">Zone de livraison</h3>

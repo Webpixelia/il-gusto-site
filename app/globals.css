@@ -4,7 +4,7 @@
 @layer base {
   @font-face {
     font-family: "Handwriting";
-    src: url("/fonts/permanent-marker.woff2") format("woff2");
+    src: url("/assets/fonts/amatic-bold.woff2") format("woff2"); 
     font-weight: normal;
     font-style: normal;
     font-display: swap;
