@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://ilgusto-lille.fr',
+  siteUrl: 'https://www.ilgusto-lille.fr',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   changefreq: 'monthly',
