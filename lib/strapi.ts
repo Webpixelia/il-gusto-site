@@ -9,7 +9,7 @@ export async function fetchStrapiData<T>(
     const url = `${baseUrl}/api${endpoint}${populate ? `?${populate}` : ''}`;
     
     const res = await fetch(url, {
-      next: { revalidate: 60 } // Revalidation toutes les heures 3600
+      next: { revalidate: 3600 } // Revalidation toutes les heures 3600
     });
   
     if (!res.ok) {
@@ -33,15 +33,7 @@ export async function getAllCategories(): Promise<Category[]> {
     );
     
     return res.data?.map((category: any) => ({
-        //id: category.id,
         ...category,
-        //Image: category.Image || null,
-        /*supplements: {
-            data: category.supplements?.map((sup: any) => ({
-                id: sup.id,
-                attributes: sup
-            })) || []
-        }*/
     })) || [];
 }
 
