@@ -19,7 +19,7 @@ export default async function Footer() {
   return (
     <footer className="bg-black text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {/* Colonne Logo et description */}
           <div>
             <div className="flex items-center mb-4">
@@ -56,41 +56,39 @@ export default async function Footer() {
             </div>
           </div>
 
-          {/* Colonne Liens rapides */}
+          {/* Colonne Liens rapides et Livraison */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Liens Rapides</h4>
             <nav aria-label="Liens de pied de page">
-            <ul className="space-y-2">
-              {mainMenu?.menuItem
-                ?.sort((a, b) => (a.Ordre || 0) - (b.Ordre || 0))
-                .map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      href={item.URL || '#'}
-                      target={item.Nouvel_onglet ? "_blank" : "_self"}
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item.Titre}
-                    </Link>
-                  </li>
-                ))}
-            </ul>
-          </nav>
-          </div>
+              <ul className="space-y-2">
+                {mainMenu?.menuItem
+                  ?.sort((a, b) => (a.Ordre || 0) - (b.Ordre || 0))
+                  .map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        href={item.URL || '#'}
+                        target={item.Nouvel_onglet ? "_blank" : "_self"}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        {item.Titre}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </nav>
 
-          {/* Colonne Plateformes Livraison */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Livraison</h4>
-            <div className="max-w-md mx-auto">
-              {/* Boutons de livraison */}
-              <DeliveryButtons 
-                uberEatsStyle={{
-                  bg: "bg-transparent", 
-                  textColor: "text-white", 
-                  borderColor: "border border-white",
-                  hoverBg: "hover:bg-gray-900"
-                }}
-              />
+            <div className="mt-8">
+              <h4 className="text-lg font-semibold mb-4">Livraison</h4>
+              <div className="max-w-md mx-auto">
+                <DeliveryButtons 
+                  uberEatsStyle={{
+                    bg: "bg-transparent", 
+                    textColor: "text-white", 
+                    borderColor: "border border-white",
+                    hoverBg: "hover:bg-gray-900"
+                  }}
+                />
+              </div>
             </div>
           </div>
 
