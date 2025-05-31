@@ -44,6 +44,16 @@ export default async function Footer() {
                     </p>
                   ))
               }
+            <div className="mt-4">
+              <Image 
+                src="/images/logo-halal.png" 
+                alt="Logo Halal" 
+                width={90} 
+                height={80} 
+                className="object-contain" 
+                priority={false}
+              />
+            </div>
           </div>
 
           {/* Colonne Liens rapides */}
