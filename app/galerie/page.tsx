@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Galerie Photos - IL GUSTO Restaurant Italien à Lille",
     description:
       "Découvrez en images notre restaurant italien, nos pizzas au feu de bois, pâtes fraîches et desserts maison.",
-    url: "https://ilgusto-lille.fr/galerie",
+    url: "https://www.ilgusto-lille.fr/galerie",
     siteName: "IL GUSTO Restaurant",
     locale: "fr_FR",
     type: "website",

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Contact - IL GUSTO Restaurant Italien à Lille",
     description:
       "Contactez-nous pour toute information ou réservation. Restaurant italien IL GUSTO, 233 Rue des Postes, 59000 Lille.",
-    url: "https://ilgusto-lille.fr/contact",
+    url: "https://www.ilgusto-lille.fr/contact",
     siteName: "IL GUSTO Restaurant",
     locale: "fr_FR",
     type: "website",

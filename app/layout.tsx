@@ -12,7 +12,7 @@ const contactInfo = contactData.data[0];
 
 // URLs de base
 const strapiBaseUrl = process.env.STRAPI_API_URL || "http://localhost:1337"
-const siteUrl = process.env.SITE_URL || "https://ilgusto-lille.fr"
+const siteUrl = process.env.SITE_URL || "https://www.ilgusto-lille.fr"
 const faviconUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, "/images/placeholder-logo.png")
 
 export const metadata: Metadata = { 

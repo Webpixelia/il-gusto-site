@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Menu - IL GUSTO Restaurant Italien à Lille",
     description: "Découvrez notre menu de pizzas au feu de bois, pâtes fraîches et desserts italiens authentiques.",
-    url: "https://ilgusto-lille.fr/menu",
+    url: "https://www.ilgusto-lille.fr/menu",
     siteName: "IL GUSTO Restaurant",
     locale: "fr_FR",
     type: "website",
