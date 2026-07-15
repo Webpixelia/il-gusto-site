@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import type { Metadata } from "next"
-import Image from "next/image"
-import PageHeader from "@/components/layout/page-header"
-import Header from "@/components/layout/header"
-import Footer from "@/components/layout/footer"
-import { GalleryView } from "@/components/layout/GalleryView"
-import { getGalerieData } from '@/lib/strapi';
+import type { Metadata } from "next";
+import PageHeader from "@/components/layout/page-header";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import { GalleryView } from "@/components/layout/GalleryView";
+import { getGalerieData } from "@/data/gallery";
 
 export const metadata: Metadata = {
   title: "Galerie Photos - IL GUSTO Restaurant Italien à Lille",
@@ -20,16 +18,20 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
   },
-}
+};
 
-export default async function GaleriePage() {
-  const galerieData = await getGalerieData();
+export default function GaleriePage() {
+  const galerieData = getGalerieData();
 
   return (
     <>
       <Header />
       <main>
-        <PageHeader title="Notre Galerie" description="Découvrez notre restaurant et nos spécialités en images" imagePath="/images/il-gusto-galerie.webp?height=400&width=1200&text=IL+GUSTO+GALERIE"/>
+        <PageHeader
+          title="Notre Galerie"
+          description="Découvrez notre restaurant et nos spécialités en images"
+          imagePath="/images/il-gusto-galerie.webp?height=400&width=1200&text=IL+GUSTO+GALERIE"
+        />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
@@ -53,5 +55,5 @@ export default async function GaleriePage() {
       </main>
       <Footer />
     </>
-  )
+  );
 }

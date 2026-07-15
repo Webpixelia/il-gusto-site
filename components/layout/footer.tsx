@@ -1,20 +1,14 @@
-import Link from "next/link"
-import Image from "next/image"
-import { MapPin, Phone, Clock } from "lucide-react"
-import { fetchStrapiData, getMenuBySlug } from "@/lib/strapi"
-import { buildImageUrl } from "@/lib/utils"
-import type { ContactInfo } from "@/types/strapi"
-import DeliveryButtons from '@/components/layout/DeliveryButtons'
+import Link from "next/link";
+import Image from "next/image";
+import { MapPin, Phone, Clock } from "lucide-react";
+import { contact } from "@/data/contact";
+import { mainMenu, legalMenu } from "@/data/navigation";
+import { formatAdresse, formatHoraires } from "@/lib/format";
+import DeliveryButtons from "@/components/layout/DeliveryButtons";
 
-export default async function Footer() {
-  const mainMenu = await getMenuBySlug('menu-principal');
-  const legalMenu = await getMenuBySlug('menu-legal');
-  const contactData = await fetchStrapiData<ContactInfo>('/contact-infos?populate=*')
-  const contactInfo = contactData.data[0]
-
-  // URL du logo
-  const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337'
-  const logoUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, '/images/placeholder-logo.png')
+export default function Footer() {
+  const mainItems = [...mainMenu.items].sort((a, b) => a.ordre - b.ordre);
+  const legalItems = [...legalMenu.items].sort((a, b) => a.ordre - b.ordre);
 
   return (
     <footer className="bg-black text-white py-12">
@@ -23,34 +17,31 @@ export default async function Footer() {
           {/* Colonne Logo et description */}
           <div>
             <div className="flex items-center mb-4">
-              <Image 
-                src={logoUrl}
-                alt={contactInfo.Logo?.alternativeText || `Logo ${contactInfo.site_title}`}
+              <Image
+                src={contact.logo}
+                alt={contact.logoAlt || `Logo ${contact.nom}`}
                 width={80}
                 height={80}
                 className="object-contain"
-                unoptimized={process.env.NODE_ENV !== 'production'}
               />
-              <h3 className="text-xl font-handwriting ml-3">
-                {contactInfo.site_title || 'IL GUSTO'}
-              </h3>
+              <h3 className="text-xl font-handwriting ml-3">{contact.nom || "IL GUSTO"}</h3>
             </div>
-            {contactInfo.site_description && 
-                (contactInfo.site_description as string).split('\n')
-                  .filter(line => line.trim() !== '')
-                  .map((line, index) => (
-                    <p key={index} className="text-gray-400 mb-2 last:mb-0">
-                      {line.trim()}
-                    </p>
-                  ))
-              }
+            {contact.description &&
+              contact.description
+                .split("\n")
+                .filter((line) => line.trim() !== "")
+                .map((line, index) => (
+                  <p key={index} className="text-gray-400 mb-2 last:mb-0">
+                    {line.trim()}
+                  </p>
+                ))}
             <div className="mt-4">
-              <Image 
-                src="/images/logo-halal.png" 
-                alt="Logo Halal" 
-                width={90} 
-                height={80} 
-                className="object-contain" 
+              <Image
+                src="/images/logo-halal.png"
+                alt="Logo Halal"
+                width={90}
+                height={80}
+                className="object-contain"
                 priority={false}
               />
             </div>
@@ -61,31 +52,29 @@ export default async function Footer() {
             <h4 className="text-lg font-semibold mb-4">Liens Rapides</h4>
             <nav aria-label="Liens de pied de page">
               <ul className="space-y-2">
-                {mainMenu?.menuItem
-                  ?.sort((a, b) => (a.Ordre || 0) - (b.Ordre || 0))
-                  .map((item) => (
-                    <li key={item.id}>
-                      <Link
-                        href={item.URL || '#'}
-                        target={item.Nouvel_onglet ? "_blank" : "_self"}
-                        className="text-gray-400 hover:text-white transition-colors"
-                      >
-                        {item.Titre}
-                      </Link>
-                    </li>
-                  ))}
+                {mainItems.map((item) => (
+                  <li key={item.id}>
+                    <Link
+                      href={item.url || "#"}
+                      target={item.nouvelOnglet ? "_blank" : "_self"}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item.titre}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
 
             <div className="mt-8">
               <h4 className="text-lg font-semibold mb-4">Livraison</h4>
               <div className="max-w-md mx-auto">
-                <DeliveryButtons 
+                <DeliveryButtons
                   uberEatsStyle={{
-                    bg: "bg-transparent", 
-                    textColor: "text-white", 
+                    bg: "bg-transparent",
+                    textColor: "text-white",
                     borderColor: "border border-white",
-                    hoverBg: "hover:bg-gray-900"
+                    hoverBg: "hover:bg-gray-900",
                   }}
                 />
               </div>
@@ -99,25 +88,22 @@ export default async function Footer() {
               <p className="flex items-top">
                 <MapPin className="w-4 h-4 mr-2" aria-hidden="true" />
                 <span className="whitespace-pre-line">
-                  {contactInfo.Adresse}
+                  {formatAdresse(contact.adresse).join("\n")}
                 </span>
               </p>
-              {contactInfo.Telephone && (
+              {contact.telephone && (
                 <p className="flex items-top">
                   <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                  <a 
-                    href={`tel:${contactInfo.Telephone.replace(/\s/g, '')}`} 
-                    className="hover:underline"
-                  >
-                    {contactInfo.Telephone}
+                  <a href={`tel:${contact.telephone.replace(/\s/g, "")}`} className="hover:underline">
+                    {contact.telephone}
                   </a>
                 </p>
               )}
-              {contactInfo.Horaires && (
+              {contact.horaires?.length > 0 && (
                 <p className="flex items-top">
                   <Clock className="w-4 h-4 mr-2" aria-hidden="true" />
                   <span className="whitespace-pre-line">
-                    {contactInfo.Horaires}
+                    {formatHoraires(contact.horaires).join("\n")}
                   </span>
                 </p>
               )}
@@ -128,25 +114,22 @@ export default async function Footer() {
         {/* Bas de footer */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} {contactInfo.site_title}. Tous droits réservés.
+            © {new Date().getFullYear()} {contact.nom}. Tous droits réservés.
           </p>
           <div className="flex space-x-4">
-            {/* Liens légaux */}
-            {legalMenu?.menuItem
-              ?.sort((a, b) => (a.Ordre || 0) - (b.Ordre || 0))
-              .map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.URL || '#'}
-                  target={item.Nouvel_onglet ? "_blank" : "_self"}
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  {item.Titre}
-                </Link>
-              ))}
+            {legalItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.url || "#"}
+                target={item.nouvelOnglet ? "_blank" : "_self"}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
+                {item.titre}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,65 +1,60 @@
-import type React from "react"
-import StrapiRichTextRenderer from "@/components/StrapiRichTextRenderer"
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { getPageBySlug } from "@/lib/strapi"
-import PageHeader from "@/components/layout/page-header"
-import Header from "@/components/layout/header"
-import Footer from "@/components/layout/footer"
-
-// Définition des types pour les paramètres de page
-type GenerateMetadataProps = {
-  params: Promise<{ slug: string }>
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
-}
+import type React from "react";
+import ContentRenderer from "@/components/ContentRenderer";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { pages, getPageBySlug } from "@/data/pages";
+import PageHeader from "@/components/layout/page-header";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 type PageProps = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
+};
+
+// Génère toutes les pages statiquement au build (plus besoin de
+// fetch/ISR : le contenu ne peut plus changer sans redéploiement).
+export function generateStaticParams() {
+  return pages.map((p) => ({ slug: p.slug }));
 }
 
-// Cette fonction est appelée pour générer les métadonnées de la page dynamique
-export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const { slug } = await params
-  const page = await getPageBySlug(slug)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const page = getPageBySlug(slug);
 
   if (!page)
     return {
       title: "Page non trouvée",
       robots: { index: false, follow: false },
-    }
+    };
 
   return {
-    title: page.SEO?.MetaTitle || page.Titre,
-    description: page.SEO?.MetaDescription,
+    title: page.seo?.metaTitle || page.titre,
+    description: page.seo?.metaDescription,
     robots: {
-      index: page.SEO?.RobotsIndex ?? true,
+      index: page.seo?.robotsIndex ?? true,
       follow: true,
     },
-  }
+  };
 }
 
 export default async function DynamicPage(props: PageProps): Promise<React.ReactElement> {
-  const { slug } = await props.params
-  const page = await getPageBySlug(slug)
+  const { slug } = await props.params;
+  const page = getPageBySlug(slug);
 
-  if (!page) notFound()
-
-  const heroImageUrl = page.ImgHero
-    ? `${process.env.STRAPI_API_URL || "http://localhost:1337"}${page.ImgHero.url}`
-    : "/images/placeholder.svg"
+  if (!page) notFound();
 
   return (
     <>
       <Header />
       <main>
-        <PageHeader title={page.Titre} imagePath={heroImageUrl} />
+        <PageHeader title={page.titre} imagePath={page.heroImage || "/images/placeholder.svg"} />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="prose prose-lg max-w-none">
-              <StrapiRichTextRenderer content={page.Contenu} className="prose-lg md:prose-xl prose-slate" />
+              <ContentRenderer content={page.content} className="prose-lg md:prose-xl prose-slate" />
               <p className="text-sm text-gray-600 mt-8">
-                Dernière mise à jour : {new Date(page.publishedAt).toLocaleDateString("fr-FR")}
+                Dernière mise à jour : {new Date(page.updatedAt).toLocaleDateString("fr-FR")}
               </p>
             </div>
           </div>
@@ -67,5 +62,5 @@ export default async function DynamicPage(props: PageProps): Promise<React.React
       </main>
       <Footer />
     </>
-  )
+  );
 }

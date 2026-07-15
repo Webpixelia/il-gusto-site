@@ -1,43 +1,37 @@
-import Image from "next/image"
-import Link from "next/link"
-import Header from "@/components/layout/header"
-import Footer from "@/components/layout/footer"
-import MenuPreview from "@/components/layout/MenuPreview"
-import GoogleReviews from '@/components/layout/GoogleReviews';
-import { MapPin, Phone, Clock, ChevronRight, Star, Utensils, MessageCircle } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { fetchStrapiData, getGalerieData, generateDirectionsUrl } from '@/lib/strapi'
-import { buildImageUrl } from "@/lib/utils"
-import type { ContactInfo } from '@/types/strapi'
-import ContactMap from '@/components/layout/ContactMap'
+import Image from "next/image";
+import Link from "next/link";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import MenuPreview from "@/components/layout/MenuPreview";
+import { MapPin, Phone, Clock, ChevronRight, Star, Utensils, MessageCircle } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { contact } from "@/data/contact";
+import { getGalerieData } from "@/data/gallery";
+import { generateDirectionsUrl } from "@/lib/maps";
+import { formatAdresse, formatAdresseInline, formatHoraires } from "@/lib/format";
+import ContactMap from "@/components/layout/ContactMap";
 
-export default async function Home() {
-  // Récupération des données depuis Strapi
-  const contactData = await fetchStrapiData<ContactInfo>('/contact-infos?populate=*');
-  const contactInfo = contactData.data[0];
-  const galerieData = await getGalerieData();
+export default function Home() {
+  const galerieData = getGalerieData();
 
-  const strapiBaseUrl = process.env.STRAPI_API_URL || 'http://localhost:1337';
-  const logoUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl);
-
-  // Récupération des images featured
-  const allImages = galerieData.flatMap(category => 
-    category.images.map(img => ({ ...img, categoryName: category.name }))
+  // Récupération des images featured (voir data/gallery.ts: `featured: true`)
+  const allImages = galerieData.flatMap((category) =>
+    category.images.map((img) => ({ ...img, categoryName: category.name }))
   );
-  const featuredImages = allImages.filter(img => img.featured).slice(0, 4);
+  const featuredImages = allImages.filter((img) => img.featured).slice(0, 4);
 
-  // Génération de l'URL pour le lien Itinéraire
   const directionsUrl = generateDirectionsUrl(
-    contactInfo.Latitude,
-    contactInfo.Longitude,
-    contactInfo.Adresse
+    contact.localisation.latitude,
+    contact.localisation.longitude,
+    formatAdresseInline(contact.adresse)
   );
+  const horaires = formatHoraires(contact.horaires);
 
   return (
     <>
       <Header />
       <main className="min-h-screen bg-white">
-        {/* Hero Section - Improved with better accessibility and semantic HTML */}
+        {/* Hero Section */}
         <section
           className="relative h-[80vh] bg-black flex items-center justify-center overflow-hidden"
           aria-label="Bannière principale"
@@ -49,13 +43,13 @@ export default async function Home() {
               fill
               className="object-cover"
               priority
-              sizes="100vw" 
+              sizes="100vw"
             />
           </div>
           <div className="container mx-auto px-4 z-10 text-center">
             <div className="flex justify-center mb-6">
               <Image
-                src={logoUrl}
+                src={contact.logo}
                 alt="IL GUSTO Logo - Restaurant Italien"
                 width={200}
                 height={200}
@@ -75,17 +69,17 @@ export default async function Home() {
                 Notre Menu
               </Link>
               <Link
-                href={`tel:${contactInfo.Telephone.replace(/\s/g, '')}`}
+                href={`tel:${contact.telephone.replace(/\s/g, "")}`}
                 className="bg-white hover:bg-gray-100 text-black font-handwriting py-3 px-6 rounded-md text-lg transition-all flex items-center justify-center gap-2"
                 aria-label="Nous appeler"
               >
-                <Phone className="w-4 h-4" /> {contactInfo.Telephone}
+                <Phone className="w-4 h-4" /> {contact.telephone}
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Promotion Banner - New section */}
+        {/* Promotion Banner */}
         <section className="bg-[#4a8063] text-white py-4">
           <div className="container mx-auto px-4 text-center">
             <p className="font-handwriting text-xl">
@@ -94,7 +88,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Info Section - Improved with better semantic structure */}
+        {/* Info Section */}
         <section className="py-12 bg-white" aria-labelledby="info-heading">
           <div className="container mx-auto px-4">
             <h2 id="info-heading" className="sr-only">
@@ -105,13 +99,10 @@ export default async function Home() {
                 <MapPin className="w-10 h-10 text-[#4a8063] mb-4" aria-hidden="true" />
                 <h3 className="text-2xl font-handwriting mb-2">Adresse</h3>
                 <address className="not-italic whitespace-pre-line">
-                        {contactInfo.Adresse}
+                  {formatAdresse(contact.adresse).join("\n")}
                 </address>
                 <Link
-                  href={contactInfo.Adresse ? 
-                    `https://maps.google.com/?q=${encodeURIComponent(contactInfo.Adresse)}` :
-                    'https://maps.google.com'
-                  }
+                  href={`https://maps.google.com/?q=${encodeURIComponent(formatAdresseInline(contact.adresse))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-3 text-[#4a8063] hover:underline"
@@ -125,16 +116,13 @@ export default async function Home() {
                 <Phone className="w-10 h-10 text-[#4a8063] mb-4" aria-hidden="true" />
                 <h3 className="text-2xl font-handwriting mb-2">Contact</h3>
                 <p className="text-gray-700 mb-2">
-                  <a 
-                    href={`tel:${contactInfo.Telephone.replace(/\s/g, '')}`} 
-                    className="hover:underline"
-                  >
-                    {contactInfo.Telephone}
+                  <a href={`tel:${contact.telephone.replace(/\s/g, "")}`} className="hover:underline">
+                    {contact.telephone}
                   </a>
                 </p>
                 <p className="text-gray-700">
-                  <a href={`mailto:${contactInfo.Email}`} className="hover:underline">
-                    {contactInfo.Email}
+                  <a href={`mailto:${contact.email}`} className="hover:underline">
+                    {contact.email}
                   </a>
                 </p>
                 <p className="mt-3 text-sm text-gray-600">Pour commandes et réservations</p>
@@ -144,9 +132,9 @@ export default async function Home() {
                 <Clock className="w-10 h-10 text-[#4a8063] mb-4" aria-hidden="true" />
                 <h3 className="text-2xl font-handwriting mb-2">Horaires</h3>
                 <ul className="space-y-1">
-                    {(contactInfo.Horaires as string).split('\n').map((line: string, index: number) => (
-                      <li key={index}>{line}</li>
-                    ))}
+                  {horaires.map((line, index) => (
+                    <li key={index}>{line}</li>
+                  ))}
                 </ul>
                 <p className="mt-3 text-sm text-gray-600">Ouvert tous le weekend</p>
               </div>
@@ -154,7 +142,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* About Section - New section */}
+        {/* About Section */}
         <section className="py-16 bg-[#f9f9f9]" aria-labelledby="about-heading">
           <div className="container mx-auto px-4">
             <h2 id="about-heading" className="text-4xl font-handwriting text-center mb-12">
@@ -164,16 +152,27 @@ export default async function Home() {
               <div className="order-2 md:order-1">
                 <h3 className="text-3xl font-handwriting text-[#4a8063] mb-4">Passion & Tradition</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  IL GUSTO vous fait découvrir les saveurs authentiques de l'Italie au cœur de Lille. Notre équipe perpétue les recettes traditionnelles italiennes dans le respect de la tradition culinaire ancestrale.
+                  IL GUSTO vous fait découvrir les saveurs authentiques de l'Italie au cœur de Lille. Notre équipe
+                  perpétue les recettes traditionnelles italiennes dans le respect de la tradition culinaire
+                  ancestrale.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Notre four à bois est l'âme de notre restaurant. Il nous permet de cuire nos pizzas à haute température, leur donnant cette texture croustillante à l'extérieur et moelleuse à l'intérieur qui fait la renommée des pizzas napolitaines authentiques.
+                  Notre four à bois est l'âme de notre restaurant. Il nous permet de cuire nos pizzas à haute
+                  température, leur donnant cette texture croustillante à l'extérieur et moelleuse à l'intérieur qui
+                  fait la renommée des pizzas napolitaines authentiques.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Chaque jour, nous préparons nos pâtes à pizza fraîches selon la tradition italienne. Tous nos ingrédients sont soigneusement sélectionnés : mozzarella, tomates, huile d'olive extra vierge... Nous privilégions les produits frais et de saison pour vous offrir une expérience culinaire inoubliable.
+                  Chaque jour, nous préparons nos pâtes à pizza fraîches selon la tradition italienne. Tous nos
+                  ingrédients sont soigneusement sélectionnés : mozzarella, tomates, huile d'olive extra vierge...
+                  Nous privilégions les produits frais et de saison pour vous offrir une expérience culinaire
+                  inoubliable.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Au-delà de nos pizzas authentiques, notre carte vous propose un large choix de pâtes fraîches préparées selon les recettes traditionnelles : des classiques comme la Carbonara aux lardons de dinde ou la Bolognaise, aux créations plus originales comme nos pâtes au saumon fumé ou au poulet curry. Nos salades composées, nos desserts faits maison (tiramisu classique ou aux spéculoos) et notre sélection de boissons complètent cette offre pour un voyage culinaire complet.
+                  Au-delà de nos pizzas authentiques, notre carte vous propose un large choix de pâtes fraîches
+                  préparées selon les recettes traditionnelles : des classiques comme la Carbonara aux lardons de
+                  dinde ou la Bolognaise, aux créations plus originales comme nos pâtes au saumon fumé ou au poulet
+                  curry. Nos salades composées, nos desserts faits maison (tiramisu classique ou aux spéculoos) et
+                  notre sélection de boissons complètent cette offre pour un voyage culinaire complet.
                 </p>
               </div>
               <div className="order-1 md:order-2 relative h-[400px] rounded-lg overflow-hidden shadow-xl">
@@ -189,7 +188,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Menu Preview Section - Improved with better semantic structure and accessibility */}
+        {/* Menu Preview Section */}
         <MenuPreview />
 
         {/* Gallery Section */}
@@ -198,7 +197,7 @@ export default async function Home() {
             <h2 id="gallery-heading" className="text-4xl font-handwriting text-center mb-12">
               Notre Cuisine
             </h2>
-            
+
             {featuredImages.length > 0 ? (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -215,7 +214,7 @@ export default async function Home() {
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="mt-8 text-center">
                   <Link href="/galerie" className="text-[#4a8063] hover:text-[#3a6a53] font-handwriting inline-flex items-center">
                     Voir plus de photos <ChevronRight className="w-4 h-4 ml-1" />
@@ -223,32 +222,20 @@ export default async function Home() {
                 </div>
               </>
             ) : (
-            <div className="text-center p-8 bg-gray-50 rounded-lg mb-4">
-              <p className="text-gray-600 italic">
-                Notre galerie photo est en cours de préparation. Très bientôt, vous pourrez découvrir ici nos créations culinaires et l'ambiance chaleureuse de notre restaurant.
-              </p>
-              <Link 
-                href="/contact" 
-                className="inline-block mt-4 text-[#4a8063] hover:text-[#3a6a53] font-handwriting"
-              >
-                En attendant, venez nous rendre visite !
-              </Link>
-            </div>
+              <div className="text-center p-8 bg-gray-50 rounded-lg mb-4">
+                <p className="text-gray-600 italic">
+                  Notre galerie photo est en cours de préparation. Très bientôt, vous pourrez découvrir ici nos
+                  créations culinaires et l'ambiance chaleureuse de notre restaurant.
+                </p>
+                <Link href="/contact" className="inline-block mt-4 text-[#4a8063] hover:text-[#3a6a53] font-handwriting">
+                  En attendant, venez nous rendre visite !
+                </Link>
+              </div>
             )}
           </div>
         </section>
 
-        {/* Testimonials Section - New section */}
-        {/*
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 id="testimonials-heading" className="text-4xl font-handwriting text-center mb-12">
-              Ce que disent nos clients
-            </h2>
-            <GoogleReviews />
-          </div>
-        </section>
-        */}
+        {/* Testimonials Section */}
         <section className="py-16 bg-[#f9f9f9]" aria-labelledby="testimonials-heading">
           <div className="container mx-auto px-4">
             <h2 id="testimonials-heading" className="text-4xl font-handwriting text-center mb-12">
@@ -267,10 +254,8 @@ export default async function Home() {
                   <span className="ml-2 text-sm text-gray-600">Avril 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "Très bonne adresse! Pizza délicieuse, cuite au feu de bois.
-                    Service très convivial et très rapide.
-                    Endroit propre et accueillant!
-                    Foncez."
+                  "Très bonne adresse! Pizza délicieuse, cuite au feu de bois. Service très convivial et très rapide.
+                  Endroit propre et accueillant! Foncez."
                 </blockquote>
                 <footer className="font-semibold">Anissa ABB</footer>
               </Card>
@@ -287,7 +272,9 @@ export default async function Home() {
                   <span className="ml-2 text-sm text-gray-600">Février 2025</span>
                 </div>
                 <blockquote className="text-gray-700 mb-4">
-                  "C'est mon premier avis sur Google, je le mets parce que c'était la meilleure pizza de ma vie! Le cadre est très propre, très calme et le gérant est très gentil ! il y a un large choix de boisson (en + des boissons éthiques), je recommande à 100% !"
+                  "C'est mon premier avis sur Google, je le mets parce que c'était la meilleure pizza de ma vie! Le
+                  cadre est très propre, très calme et le gérant est très gentil ! il y a un large choix de boisson
+                  (en + des boissons éthiques), je recommande à 100% !"
                 </blockquote>
                 <footer className="font-semibold">melinda afri</footer>
               </Card>
@@ -305,7 +292,9 @@ export default async function Home() {
                 </div>
                 <blockquote className="text-gray-700 mb-4">
                   "Je vous recommande vivement cette pizzeria ! Les pizzas cuites au feu de bois sont exceptionnelles.
-                    Le restaurant est propre, moderne et chaleureux, et le personnel est à la fois accueillant et souriant. En bonus, l'établissement ne propose que des boissons éthiques, et se sont, à ma connaissance, les seuls à les proposer dans la rue."
+                  Le restaurant est propre, moderne et chaleureux, et le personnel est à la fois accueillant et
+                  souriant. En bonus, l'établissement ne propose que des boissons éthiques, et se sont, à ma
+                  connaissance, les seuls à les proposer dans la rue."
                 </blockquote>
                 <footer className="font-semibold">Hum Anity</footer>
               </Card>
@@ -323,7 +312,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* CTA Section - New section */}
+        {/* CTA Section */}
         <section className="py-16 bg-[#4a8063] text-white" aria-labelledby="cta-heading">
           <div className="container mx-auto px-4 text-center">
             <h2 id="cta-heading" className="text-4xl font-handwriting mb-6">
@@ -343,15 +332,14 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Map Section - Improved with better semantic structure and accessibility */}
+        {/* Map Section */}
         <section className="py-16 bg-white" aria-labelledby="location-heading">
           <div className="container mx-auto px-4">
             <h2 id="location-heading" className="text-4xl font-handwriting text-center mb-12">
               Nous Trouver
             </h2>
             <div className="grid md:grid-cols-2 gap-8 items-center">
-                {/* Composant de carte dynamique */}
-                <ContactMap contact={contactInfo} />
+              <ContactMap contact={contact} />
               <div>
                 <h3 className="text-3xl font-handwriting text-[#4a8063] mb-4">IL GUSTO</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
@@ -359,33 +347,30 @@ export default async function Home() {
                   authentiques, préparées avec des ingrédients frais et de qualité.
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  Notre four à bois traditionnel donne à nos pizzas une saveur unique que vous ne trouverez nulle part
-                  ailleurs à Lille.
+                  Notre four à bois traditionnel donne à nos pizzas une saveur unique que vous ne trouverez nulle
+                  part ailleurs à Lille.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-top">
                     <MapPin className="w-5 h-5 text-[#4a8063] mr-2" aria-hidden="true" />
                     <address className="not-italic whitespace-pre-line">
-                        {contactInfo.Adresse}
+                      {formatAdresse(contact.adresse).join("\n")}
                     </address>
                   </div>
                   <div className="flex items-top">
                     <Phone className="w-5 h-5 text-[#4a8063] mr-2" aria-hidden="true" />
                     <p className="text-gray-700">
-                        <a 
-                          href={`tel:${contactInfo.Telephone.replace(/\s/g, '')}`} 
-                          className="hover:underline"
-                        >
-                          {contactInfo.Telephone}
-                        </a>
+                      <a href={`tel:${contact.telephone.replace(/\s/g, "")}`} className="hover:underline">
+                        {contact.telephone}
+                      </a>
                     </p>
                   </div>
                   <div className="flex items-top">
                     <Clock className="w-5 h-5 text-[#4a8063] mr-2" aria-hidden="true" />
                     <ul className="space-y-1">
-                        {(contactInfo.Horaires as string).split('\n').map((line: string, index: number) => (
-                          <li key={index}>{line}</li>
-                        ))}
+                      {horaires.map((line, index) => (
+                        <li key={index}>{line}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -406,5 +391,5 @@ export default async function Home() {
       </main>
       <Footer />
     </>
-  )
+  );
 }

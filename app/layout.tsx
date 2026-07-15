@@ -1,21 +1,15 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { fetchStrapiData } from '@/lib/strapi'
-import { buildImageUrl } from "@/lib/utils"
-import type { ContactInfo } from '@/types/strapi'
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { contact } from "@/data/contact";
 
 const inter = Inter({ subsets: ["latin"] });
-const contactData = await fetchStrapiData<ContactInfo>('/contact-infos', `populate=Logo`);
-const contactInfo = contactData.data[0];
 
-// URLs de base
-const strapiBaseUrl = process.env.STRAPI_API_URL || "http://localhost:1337"
-const siteUrl = process.env.SITE_URL || "https://www.ilgusto-lille.fr"
-const faviconUrl = buildImageUrl(contactInfo.Logo?.url, strapiBaseUrl, "/images/placeholder-logo.png")
+const siteUrl = process.env.SITE_URL || "https://www.ilgusto-lille.fr";
+const faviconUrl = contact.logo || "/images/placeholder-logo.png";
 
-export const metadata: Metadata = { 
+export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "IL GUSTO - Restaurant Italien & Pizzeria à Lille | Pizza, Pasta & Desserts",
   description:
@@ -60,17 +54,16 @@ export const metadata: Metadata = {
       url: faviconUrl,
     },
   },
-  generator: 'v0.dev'
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="fr">
       <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }
