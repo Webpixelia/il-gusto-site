@@ -3,8 +3,6 @@
 // Remplace : getMenuBySlug('menu-principal') et getMenuBySlug('menu-legal')
 // (endpoint Strapi: GET /api/menus?filters[Slug][$eq]=...&populate=menuItem)
 // Utilisé dans components/layout/header.tsx et components/layout/footer.tsx.
-//
-// ⚠️ TODO : vérifier les items/URLs/ordre réels depuis Strapi.
 
 import type { NavMenu } from "@/types/restaurant";
 

@@ -15,15 +15,15 @@ export const pages: ContentPage[] = [
       { type: "heading", level: 2, text: "1. Éditeur du site" },
       {
         type: "paragraph",
-        text: `Le présent site est édité par ${contact.nom}, [TODO: forme juridique — ex. Entreprise Individuelle / SARL / SAS], [TODO: si société, capital social], immatriculé(e) au Registre du Commerce et des Sociétés de [TODO: ville RCS] sous le numéro [TODO: n° RCS ou SIREN], numéro SIRET [TODO: n° SIRET], dont le siège social est situé au ${contact.adresse.rue}, ${contact.adresse.codePostal} ${contact.adresse.ville}.`,
+        text: `Le présent site est édité par ${contact.nom}, SAS, immatriculée au Registre du Commerce et des Sociétés de Lille sous le numéro 934354556, numéro SIRET 93435455600011, dont le siège social est situé au ${contact.adresse.rue}, ${contact.adresse.codePostal} ${contact.adresse.ville}.`,
       },
       {
         type: "paragraph",
-        text: `Numéro de TVA intracommunautaire : [TODO: n° TVA, si applicable].`,
+        text: `Numéro de TVA intracommunautaire : FR69934354556.`,
       },
       {
         type: "paragraph",
-        text: `Directeur de la publication : [TODO: nom du représentant légal].`,
+        text: `Directeur de la publication : ${contact.nom}.`,
       },
       {
         type: "paragraph",
@@ -32,7 +32,7 @@ export const pages: ContentPage[] = [
       { type: "heading", level: 2, text: "2. Hébergement" },
       {
         type: "paragraph",
-        text: "Le site est hébergé par [TODO: nom de l'hébergeur], [TODO: adresse de l'hébergeur], [TODO: téléphone/contact de l'hébergeur].",
+        text: "Le site est hébergé par la société Vercel Inc., dont le siège est situé 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis, joignable au (559) 288-7060 ou à privacy@vercel.com.",
       },
       { type: "heading", level: 2, text: "3. Propriété intellectuelle" },
       {
@@ -47,7 +47,7 @@ export const pages: ContentPage[] = [
       { type: "heading", level: 2, text: "5. Cookies" },
       {
         type: "paragraph",
-        text: "Ce site est susceptible d'utiliser des cookies techniques nécessaires à son bon fonctionnement. Aucun cookie de mesure d'audience ou publicitaire n'est déposé sans consentement préalable. [TODO: à ajuster si vous ajoutez Google Analytics, Meta Pixel, etc.]",
+        text: "Ce site est susceptible d'utiliser des cookies techniques nécessaires à son bon fonctionnement. Aucun cookie de mesure d'audience ou publicitaire n'est déposé sans consentement préalable.",
       },
       { type: "heading", level: 2, text: "6. Limitation de responsabilité" },
       {
@@ -97,12 +97,12 @@ export const pages: ContentPage[] = [
       { type: "heading", level: 2, text: "5. Durée de conservation" },
       {
         type: "paragraph",
-        text: "Les données transmises via le formulaire de contact sont conservées pendant une durée maximale de [TODO: ex. 3 ans] à compter de notre dernier échange, sauf obligation légale de conservation plus longue.",
+        text: "Les données transmises via le formulaire de contact sont conservées pendant une durée maximale de 6 mois à compter de notre dernier échange, sauf obligation légale de conservation plus longue.",
       },
       { type: "heading", level: 2, text: "6. Destinataires des données" },
       {
         type: "paragraph",
-        text: "Vos données sont destinées exclusivement à l'équipe du restaurant IL GUSTO et ne sont ni vendues, ni cédées, ni communiquées à des tiers, à l'exception des prestataires techniques nécessaires au fonctionnement du site (hébergeur, [TODO: service d'envoi d'emails éventuel]).",
+        text: "Vos données sont destinées exclusivement à l'équipe du restaurant IL GUSTO et ne sont ni vendues, ni cédées, ni communiquées à des tiers, à l'exception des prestataires techniques nécessaires au fonctionnement du site.",
       },
       { type: "heading", level: 2, text: "7. Vos droits" },
       {

@@ -62,15 +62,11 @@ export interface DeliveryPlatform {
   enabled: boolean;
   label: string;
   linkImage: string;
-  /** TODO: ajouter le lien réel vers votre page UberEats/Deliveroo si vous
-   *  voulez que le bouton pointe vers votre restaurant précis plutôt que
-   *  la homepage de la plateforme. */
   url?: string;
 }
 
 export interface ContactInfo {
   nom: string;
-  /** Chemin du logo dans /public, ex: "/images/logo.png" */
   logo: string;
   logoAlt?: string;
   telephone: string;
@@ -91,8 +87,6 @@ export interface ContactInfo {
     longitude: number;
     googlePlaceId?: string;
   };
-  /** Texte de présentation affiché sous le logo dans le footer (remplace
-   *  l'ancien `site_description` Strapi). */
   description?: string;
 }
 

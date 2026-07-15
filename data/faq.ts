@@ -5,8 +5,6 @@
 // Le champ `reponse` était un Rich Text Strapi (tableau de blocks) que
 // FaqSection.tsx reconvertissait en texte simple avec parseRichText().
 // Ici on stocke directement le texte final : plus besoin de parser.
-//
-// ⚠️ TODO : remplacer par les FAQ réelles.
 
 import type { FaqItem } from "@/types/restaurant";
 

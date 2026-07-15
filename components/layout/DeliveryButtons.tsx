@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { contact } from "@/data/contact";
 
 // Interface pour définir les props acceptées par le composant
 interface DeliveryButtonsProps {
@@ -19,13 +20,13 @@ export default function DeliveryButtons({
   }
 }: DeliveryButtonsProps) {
   
-  // Construction de la classe pour le bouton UberEats
+  const { uberEats, deliveroo } = contact.livraison;
   const uberEatsButtonClass = `btn-delivery w-full ${uberEatsStyle.bg} ${uberEatsStyle.textColor} ${uberEatsStyle.borderColor} ${uberEatsStyle.hoverBg} focus:outline-none`;
   
   return (
     <div className="flex flex-col gap-4 w-full">
       <a
-        href="https://www.ubereats.com"
+        href={uberEats.url}
         target="_blank"
         rel="noopener noreferrer"
         className={uberEatsButtonClass}
@@ -40,7 +41,7 @@ export default function DeliveryButtons({
         Uber Eats
       </a>
       <a
-        href="https://www.deliveroo.fr"
+        href={deliveroo.url}
         target="_blank"
         rel="noopener noreferrer"
         className="btn-delivery w-full bg-[#00ccbc] text-white hover:bg-[#00b3a4] focus:outline-none hidden"

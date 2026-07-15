@@ -4,9 +4,6 @@
 //
 // ⚠️ Champs optionnels du type ContactInfo non renseignés ici (le site
 // compilera quand même, mais ces éléments seront absents à l'affichage) :
-//  - logoAlt        : texte alternatif du logo (header/footer). TODO.
-//  - description     : texte de présentation sous le logo dans le footer
-//                       (remplace l'ancien `site_description` Strapi). TODO.
 //  - localisation.googlePlaceId : vide pour l'instant → OK si vous
 //                       n'utilisez plus les avis Google (voir plus bas).
 
@@ -88,11 +85,13 @@ export const contact: ContactInfo = {
       enabled: true,
       label: "Uber Eats",
       linkImage: "/images/ubereats-logo.svg",
+      url: "https://www.ubereats.com/",
     },
     deliveroo: {
       enabled: false,
       label: "Deliveroo",
       linkImage: "/images/deliveroo-logo.svg",
+      url: "",
     },
   },
 
