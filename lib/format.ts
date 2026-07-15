@@ -1,12 +1,3 @@
-// lib/format.ts
-//
-// L'ancien Strapi stockait Adresse et Horaires comme du texte brut
-// pré-formaté (une chaîne avec des \n), affiché directement avec
-// `.split('\n').map(line => <li>{line}</li>)`. La nouvelle structure
-// (data/contact.ts) est structurée (objet adresse, tableau horaires par
-// jour) — meilleur pour la donnée, mais il faut la formatter pour l'affichage.
-// Ces deux helpers reproduisent le rendu visuel d'origine.
-
 import type { ContactInfo, JourHoraire } from "@/types/restaurant";
 
 export function formatAdresse(adresse: ContactInfo["adresse"]): string[] {

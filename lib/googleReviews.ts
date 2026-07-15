@@ -1,21 +1,17 @@
-import { fetchStrapiData } from './strapi';
-import type { ContactInfo } from '@/types/strapi';
-import type { GoogleReview } from '@/types/strapi';
+import { contact } from "@/data/contact";
 
-export async function getGoogleReviews(): Promise<GoogleReview[]> {
+export async function getGoogleReviews(): Promise<any[]> {
   try {
-    // Récupération du place_id depuis Strapi
-    const contactData = await fetchStrapiData<ContactInfo>('/contact-infos');
-    const placeId = contactData.data[0]?.place_id_google;
+    const placeId = contact.localisation.googlePlaceId;
     const apiKey = process.env.GOOGLE_API_KEY;
 
     if (!placeId) {
-      console.warn("Aucun place_id Google configuré dans Strapi");
+      console.warn("Aucun place_id Google configuré");
       return [];
     }
 
     if (!apiKey) {
-      console.warn("Aucun apiKey Google configuré dans Strapi");
+      console.warn("Aucun apiKey Google configuré");
       return [];
     }
 

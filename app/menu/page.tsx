@@ -27,10 +27,6 @@ interface PlatsByBase {
   [key: string]: Plat[];
 }
 
-// Organiser les pizzas par base (voir note dans data/menu.ts : le champ
-// `base` n'est pas encore renseigné dans vos données, cette fonction ne
-// groupera donc rien tant que vous ne l'aurez pas ajouté — comportement
-// identique à une catégorie sans le champ Strapi "Base" à l'époque).
 function pizzasParBase(plats: Plat[]): PlatsByBase {
   return plats.reduce((acc, plat) => {
     const base = plat.base;

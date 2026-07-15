@@ -1,14 +1,3 @@
-// data/gallery.ts
-//
-// Remplace : getGalerieData() (endpoint Strapi: GET /api/categorie-galeries)
-// ⚠️ Toutes les images doivent être copiées dans /public/images/ (mêmes noms
-// de fichiers que ci-dessous).
-// ⚠️ `featured: true` = image reprise dans le carrousel de la page d'accueil
-// (section "Notre Cuisine", 4 images max). Sans au moins une image
-// featured, cette section affichera son message de repli ("galerie en
-// cours de préparation"). J'ai coché 4 photos par défaut ci-dessous —
-// changez-les librement.
-
 export interface GalleryCategory {
   id: number;
   nom: string;

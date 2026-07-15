@@ -1,11 +1,4 @@
 "use client";
-// components/layout/header.tsx
-//
-// AVANT : header.tsx (server component, fetch Strapi) + header-client.tsx
-// (client component, recevait les données en props).
-// APRÈS : un seul composant client. Les données étant maintenant statiques
-// et importées directement, plus besoin de séparer fetch (serveur) et
-// interactivité (client) : header-client.tsx peut être supprimé.
 
 import Link from "next/link";
 import Image from "next/image";

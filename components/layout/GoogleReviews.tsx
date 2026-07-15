@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { getGoogleReviews } from "@/lib/googleReviews";
-import type { GoogleReview } from '@/types/strapi';
+import type { GoogleReview } from '@/types/restaurant';
 
 export default async function GoogleReviews() {
     let reviews: GoogleReview[] | null = null;

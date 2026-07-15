@@ -1,9 +1,3 @@
-// data/navigation.ts
-//
-// Remplace : getMenuBySlug('menu-principal') et getMenuBySlug('menu-legal')
-// (endpoint Strapi: GET /api/menus?filters[Slug][$eq]=...&populate=menuItem)
-// Utilisé dans components/layout/header.tsx et components/layout/footer.tsx.
-
 import type { NavMenu } from "@/types/restaurant";
 
 export const mainMenu: NavMenu = {

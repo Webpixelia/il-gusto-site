@@ -1,14 +1,5 @@
-// components/ContentRenderer.tsx
-//
-// Remplace components/StrapiRichTextRenderer.tsx : rend le tableau
-// `ContentSection[]` de data/pages.ts (voir types/restaurant.ts) au lieu du
-// Rich Text Strapi (BlocksContent).
-
 import type { ContentSection } from "@/types/restaurant";
 
-// Mapping explicite plutôt que `keyof JSX.IntrinsicElements` : évite toute
-// dépendance au namespace global `JSX` (supprimé par défaut avec React 19 /
-// les types React récents, remplacé par `React.JSX`).
 const HeadingTag = {
   2: "h2",
   3: "h3",

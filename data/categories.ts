@@ -1,8 +1,3 @@
-// data/categories.ts
-//
-// Remplace : getAllCategories() (endpoint Strapi: GET /api/categories)
-// ⚠️ Toutes les images doivent être copiées dans /public/images/.
-
 import type { Category } from "@/types/restaurant";
 import { menu } from "./menu";
 

@@ -116,8 +116,6 @@ export interface SeoInfo {
   robotsIndex?: boolean;
 }
 
-/** Pages de contenu dynamiques (mentions légales, CGV...) remplaçant la
- *  collection Strapi "pages". */
 export interface ContentSection {
   type: "heading" | "paragraph" | "list";
   level?: 2 | 3 | 4;
@@ -139,4 +137,10 @@ export interface GoogleReview {
   rating: number;
   text: string;
   relative_time_description: string;
+}
+
+export interface GoogleReviewsResponse {
+  result: {
+    reviews: GoogleReview[];
+  };
 }

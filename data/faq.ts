@@ -1,11 +1,3 @@
-// data/faq.ts
-//
-// Remplace : getFaqs() (endpoint Strapi: GET /api/faqs)
-//
-// Le champ `reponse` était un Rich Text Strapi (tableau de blocks) que
-// FaqSection.tsx reconvertissait en texte simple avec parseRichText().
-// Ici on stocke directement le texte final : plus besoin de parser.
-
 import type { FaqItem } from "@/types/restaurant";
 
 export const faqs: FaqItem[] = [

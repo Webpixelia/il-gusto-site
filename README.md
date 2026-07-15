@@ -12,7 +12,6 @@ Création d'une vitrine digitale pour IL GUSTO, restaurant italien authentique s
 - **React 19** - Bibliothèque UI avec hooks modernes
 - **TypeScript** - Développement type-safe
 - **Tailwind CSS** - Design system et responsive design
-- **Strapi CMS** - Headless CMS pour la gestion de contenu
 - **Vercel** - Déploiement et optimisations
 
 ## ✨ Fonctionnalités développées
@@ -43,7 +42,6 @@ Création d'une vitrine digitale pour IL GUSTO, restaurant italien authentique s
 L'application suit une architecture moderne avec :
 
 - **Frontend découplé** - Séparation claire entre interface et données
-- **API-first** - Communication avec le backend Strapi via REST API
 - **Components modulaires** - Réutilisabilité et maintenabilité
 - **State management** - Gestion d'état optimisée avec React hooks
 
@@ -63,7 +61,6 @@ L'application suit une architecture moderne avec :
 
 ## 🔗 Intégrations
 
-- **Backend Strapi** - Gestion de contenu headless
 - **CDN Vercel** - Distribution mondiale optimisée
 - **Optimisation images** - Compression et formats modernes (WebP, AVIF)
 - **Monitoring** - Suivi des performances en temps réel

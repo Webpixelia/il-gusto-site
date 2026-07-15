@@ -1,10 +1,3 @@
-// data/supplements.ts
-//
-// Dans Strapi, les suppléments étaient nichés dans chaque Category
-// (category.supplements). Ici c'est une collection à part reliée par
-// `categorieSlug`, comme pour data/menu.ts — bon réflexe : ça évite de
-// dupliquer/imbriquer et reste cohérent avec le reste du modèle.
-
 export interface Supplement {
   id: number;
   categorieSlug: string;

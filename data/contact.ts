@@ -1,12 +1,3 @@
-// data/contact.ts
-//
-// Remplace : fetchStrapiData<ContactInfo>('/contact-infos?populate=*')
-//
-// ⚠️ Champs optionnels du type ContactInfo non renseignés ici (le site
-// compilera quand même, mais ces éléments seront absents à l'affichage) :
-//  - localisation.googlePlaceId : vide pour l'instant → OK si vous
-//                       n'utilisez plus les avis Google (voir plus bas).
-
 import type { ContactInfo } from "@/types/restaurant";
 
 export const contact: ContactInfo = {
@@ -98,6 +89,6 @@ export const contact: ContactInfo = {
   localisation: {
     latitude: 50.6189, // à confirmer
     longitude: 3.0505, // à confirmer
-    googlePlaceId: "",
+    googlePlaceId: "ChIJTywt_q_VwkcRaPWJ19hRyc0",
   },
 };
